@@ -1,0 +1,330 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: "AWS::Serverless-2016-10-31"
+Description: Integration Project with Shopify, UPS, and Compliance Services
+
+Parameters:
+  ApiStage:
+    Type: String
+    Default: Prod
+  # Vinoshipper Parameters
+  VinoShipperUsername:
+    Type: String
+    Description: Vinoshipper API username
+  VinoShipperPassword:
+    Type: String
+    Description: Vinoshipper API password
+    NoEcho: true
+  # Shopify Parameters
+  ShopifyDomain:
+    Type: String
+    Description: Shopify store domain
+  ShopifyAccessToken:
+    Type: String
+    Description: Shopify access token
+    NoEcho: true
+  # UPS Parameters
+  UPSClientId:
+    Type: String
+    Description: UPS API Client ID
+    NoEcho: true
+  UPSClientSecret:
+    Type: String
+    Description: UPS API Client Secret
+    NoEcho: true
+
+Globals:
+  Function:
+    Timeout: 300
+    MemorySize: 256
+    Runtime: nodejs18.x
+    Environment:
+      Variables:
+        VINOSHIPPER_USERNAME: !Ref VinoShipperUsername
+        VINOSHIPPER_PASSWORD: !Ref VinoShipperPassword
+        VINOSHIPPER_API_URL: !Sub "https://vinoshipper.com/api/v3"
+        SHOPIFY_DOMAIN: !Ref ShopifyDomain
+        SHOPIFY_ACCESS_TOKEN: !Ref ShopifyAccessToken
+        SYNC_TABLE: !Ref ProductSyncTable
+        NODE_ENV: production
+        DYNAMODB_TABLE: !Ref ProductSyncTable
+
+Resources:
+  #############################################
+  # Lambda Layer
+  #############################################
+  SharedLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: shared-utilities
+      Description: Shared utilities for Lambda functions
+      ContentUri: src/layers/shared
+      CompatibleRuntimes:
+        - nodejs18.x
+      RetentionPolicy: Retain
+
+  #############################################
+  # DynamoDB Tables
+  #############################################
+
+  # Product Sync Table
+  ProductSyncTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ProductSyncTable
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: productId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: productId
+          KeyType: HASH
+
+  SyncStatusTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub ${AWS::StackName}-sync-status
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  # Compliance Tables
+  ComplianceCacheTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ComplianceCache
+      AttributeDefinitions:
+        - AttributeName: customerKey
+          AttributeType: S
+      KeySchema:
+        - AttributeName: customerKey
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  # UPS Tables
+  UpsTokensTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: UpsTokens
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: expiresAt
+        Enabled: true
+
+  UpsLocationsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: UpsLocations
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: addressHash
+          AttributeType: S
+      KeySchema:
+        - AttributeName: addressHash
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: expiresAt
+        Enabled: true
+
+  #############################################
+  # API Gateway Resources
+  #############################################
+
+  VendorApiKey:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref ApiStage
+      Cors:
+        AllowMethods: "'OPTIONS,POST'"
+        AllowHeaders: "'Content-Type,X-Api-Key,Authorization'"
+        AllowOrigin: "'*'"
+
+  VendorAPIUsagePlan:
+    Type: AWS::ApiGateway::UsagePlan
+    DependsOn:
+      - VendorApiKeyStage
+    Properties:
+      ApiStages:
+        - ApiId: !Ref VendorApiKey
+          Stage: !Ref ApiStage
+      Description: Usage plan for vendor API access
+      UsagePlanName: "compliance-usage-plan"
+
+  VendorApiAccessKey:
+    Type: AWS::ApiGateway::ApiKey
+    DependsOn:
+      - VendorApiKeyStage
+    Properties:
+      Name: !Sub "compliance-api-key"
+      Description: API key for vendor access
+      Tags:
+        - Key: Mode
+          Value: Learning
+      Enabled: true
+      StageKeys:
+        - RestApiId: !Ref VendorApiKey
+          StageName: !Ref ApiStage
+
+  LinkUsagePlanApiKey:
+    Type: AWS::ApiGateway::UsagePlanKey
+    Properties:
+      KeyId: !Ref VendorApiAccessKey
+      KeyType: API_KEY
+      UsagePlanId: !Ref VendorAPIUsagePlan
+
+  #############################################
+  # Lambda Functions
+  #############################################
+
+  # Product Sync Function
+  ProductSyncFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: product-sync
+      Handler: index.handler
+      Runtime: nodejs18.x
+      CodeUri: src/functions/product-sync
+      MemorySize: 512
+      Timeout: 300
+      AutoPublishAlias: live
+      Layers:
+        - !Ref SharedLayer
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ProductSyncTable
+      Events:
+        ProductSyncApi:
+          Type: Api
+          Properties:
+            Path: /products/sync
+            Method: POST
+            RestApiId: !Ref VendorApiKey
+            Auth:
+              ApiKeyRequired: true
+        ProductSyncOptions:
+          Type: Api
+          Properties:
+            Path: /products/sync
+            Method: OPTIONS
+            RestApiId: !Ref VendorApiKey
+
+  # Compliance Functions
+  ComplianceCheckFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: vinoshipper-compliance-check
+      Handler: compliance.handler
+      Runtime: nodejs20.x
+      CodeUri: src/compliance/
+      MemorySize: 512
+      Timeout: 60
+      AutoPublishAlias: live
+      Environment:
+        Variables:
+          COMPLIANCE_CACHE_TABLE: !Ref ComplianceCacheTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: ComplianceCache
+      Events:
+        ComplianceCheckApi:
+          Type: Api
+          Properties:
+            Path: /compliance/check
+            Method: POST
+            RestApiId: !Ref VendorApiKey
+            Auth:
+              ApiKeyRequired: true
+        ComplianceCheckOptions:
+          Type: Api
+          Properties:
+            Path: /compliance/check
+            Method: OPTIONS
+            RestApiId: !Ref VendorApiKey
+
+  # UPS Functions
+  GetUPSLocationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: ups-location-finder
+      Handler: index.handler
+      Runtime: nodejs20.x
+      CodeUri: src/ups/functions/getLocations
+      MemorySize: 256
+      Timeout: 30
+      AutoPublishAlias: live
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UpsTokensTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UpsLocationsTable
+      Environment:
+        Variables:
+          TOKEN_TABLE: !Ref UpsTokensTable
+          LOCATIONS_TABLE: !Ref UpsLocationsTable
+          UPS_CLIENT_ID: !Ref UPSClientId
+          UPS_CLIENT_SECRET: !Ref UPSClientSecret
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /ups/locations
+            Method: post
+            RestApiId: !Ref VendorApiKey
+            Auth:
+              ApiKeyRequired: true
+
+  # Shopify Functions
+  # ShopifyOrderWebhookFunction:
+  #   Type: AWS::Serverless::Function
+  #   Properties:
+  #     FunctionName: shopify-order-webhook-handler
+  #     Handler: index.handler
+  #     Runtime: nodejs20.x
+  #     CodeUri: src/shopify/
+  #     AutoPublishAlias: live
+  #     Events:
+  #       ShopifyOrderWebhook:
+  #         Type: Api
+  #         Properties:
+  #           Path: /shopify/webhook/order
+  #           Method: POST
+
+#############################################
+# Outputs
+#############################################
+
+Outputs:
+  ProductSyncApiEndpoint:
+    Description: API Gateway endpoint URL for product synchronization
+    Value: !Sub "https://${VendorApiKey}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/products/sync"
+
+  ComplianceApiEndpoint:
+    Description: API Gateway endpoint URL for compliance check
+    Value: !Sub "https://${VendorApiKey}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/compliance/check"
+
+  UPSLocationsApiEndpoint:
+    Description: API Gateway endpoint URL for UPS locations
+    Value: !Sub "https://${VendorApiKey}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/ups/locations"
+
+  ApiKey:
+    Description: API Key for accessing the endpoints
+    Value: !Ref VendorApiAccessKey
+
+  SharedLayer:
+    Description: "Shared Layer ARN"
+    Value: !Ref SharedLayer
+  SharedLayerArn:
+    Description: ARN of the shared utilities layer
+    Value: !Ref SharedLayer
+  SharedLayerName:
+    Description: Name of the shared utilities layer
+    Value: !Sub "${AWS::StackName}-shared-utilities"

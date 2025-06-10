@@ -1,0 +1,13 @@
+{
+  "name": "vinoshipper-shopify-sync",
+  "version": "1.0.0",
+  "description": "Sync products from Vinoshipper to Shopify",
+  "scripts": {
+    "deploy": "serverless deploy",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "serverless": "^3.0.0",
+    "jest": "^29.0.0"
+  }
+}

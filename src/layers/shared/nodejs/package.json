@@ -1,0 +1,11 @@
+{
+  "name": "shared-layer",
+  "version": "1.0.0",
+  "description": "Shared dependencies for Lambda functions",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/lib-dynamodb": "^3.0.0",
+    "axios": "^1.6.0",
+    "winston": "^3.11.0"
+  }
+} 

@@ -1,0 +1,9 @@
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "shopify-order-webhook"
+region = "us-east-1"                  # Change if needed
+profile = "wdlogics1"
+s3_bucket = "wdlogics-serverless-deployments"
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = false
