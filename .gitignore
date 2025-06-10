@@ -1,0 +1,9 @@
+# .gitignore
+.env
+src/compliance/node_modules
+node_modules
+.aws-sam
+test-cors.js
+deploy.sh
+env.json
+
