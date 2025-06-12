@@ -34,9 +34,11 @@ Parameters:
 
 Globals:
   Function:
+    Layers:
+      - !Ref IntegrationLayer
     Timeout: 300
     MemorySize: 256
-    Runtime: nodejs18.x
+    Runtime: nodejs20.x
     Environment:
       Variables:
         VINOSHIPPER_USERNAME: !Ref VinoShipperUsername
@@ -52,14 +54,14 @@ Resources:
   #############################################
   # Lambda Layer
   #############################################
-  SharedLayer:
+  IntegrationLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
-      LayerName: shared-utilities
-      Description: Shared utilities for Lambda functions
-      ContentUri: src/layers/shared
+      LayerName: integration-utilities
+      Description: Integration utilities for Lambda functions
+      ContentUri: dependencies/
       CompatibleRuntimes:
-        - nodejs18.x
+        - nodejs20.x
       RetentionPolicy: Retain
 
   #############################################
@@ -196,8 +198,6 @@ Resources:
       MemorySize: 512
       Timeout: 300
       AutoPublishAlias: live
-      Layers:
-        - !Ref SharedLayer
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref ProductSyncTable
@@ -224,7 +224,7 @@ Resources:
       FunctionName: vinoshipper-compliance-check
       Handler: compliance.handler
       Runtime: nodejs20.x
-      CodeUri: src/compliance/
+      CodeUri: src/functions/compliance
       MemorySize: 512
       Timeout: 60
       AutoPublishAlias: live
@@ -257,7 +257,7 @@ Resources:
       FunctionName: ups-location-finder
       Handler: index.handler
       Runtime: nodejs20.x
-      CodeUri: src/ups/functions/getLocations
+      CodeUri: src/functions/getLocations
       MemorySize: 256
       Timeout: 30
       AutoPublishAlias: live
@@ -283,20 +283,23 @@ Resources:
               ApiKeyRequired: true
 
   # Shopify Functions
-  # ShopifyOrderWebhookFunction:
-  #   Type: AWS::Serverless::Function
-  #   Properties:
-  #     FunctionName: shopify-order-webhook-handler
-  #     Handler: index.handler
-  #     Runtime: nodejs20.x
-  #     CodeUri: src/shopify/
-  #     AutoPublishAlias: live
-  #     Events:
-  #       ShopifyOrderWebhook:
-  #         Type: Api
-  #         Properties:
-  #           Path: /shopify/webhook/order
-  #           Method: POST
+  ShopifyOrderWebhookFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: shopify-order-webhook-handler
+      Handler: index.handler
+      Runtime: nodejs20.x
+      CodeUri: src/functions/shopify
+      AutoPublishAlias: live
+      Events:
+        ShopifyOrderWebhook:
+          Type: Api
+          Properties:
+            Path: /shopify/webhook/order
+            Method: POST
+            RestApiId: !Ref VendorApiKey
+            # Auth:
+            #   ApiKeyRequired: false
 
 #############################################
 # Outputs
@@ -315,16 +318,20 @@ Outputs:
     Description: API Gateway endpoint URL for UPS locations
     Value: !Sub "https://${VendorApiKey}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/ups/locations"
 
+  ShopifyOrderWebhookApiEndpoint:
+    Description: API Gateway endpoint URL for Shopify order webhook
+    Value: !Sub "https://${VendorApiKey}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/shopify/webhook/order"
+
   ApiKey:
     Description: API Key for accessing the endpoints
     Value: !Ref VendorApiAccessKey
 
-  SharedLayer:
-    Description: "Shared Layer ARN"
-    Value: !Ref SharedLayer
-  SharedLayerArn:
-    Description: ARN of the shared utilities layer
-    Value: !Ref SharedLayer
-  SharedLayerName:
-    Description: Name of the shared utilities layer
-    Value: !Sub "${AWS::StackName}-shared-utilities"
+  IntegrationLayer:
+    Description: "Integration Layer ARN"
+    Value: !Ref IntegrationLayer
+  IntegrationLayerArn:
+    Description: ARN of the integration utilities layer
+    Value: !Ref IntegrationLayer
+  IntegrationLayerLayerName:
+    Description: Name of the integration utilities layer
+    Value: !Sub "${AWS::StackName}-integration-utilities"

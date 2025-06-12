@@ -1,13 +1,11 @@
 {
-  "name": "integration-project",
+  "name": "vinoshipper-shopify-sync",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Sync products from Vinoshipper to Shopify",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "serverless deploy",
+    "test": "jest"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.817.0",
     "@aws-sdk/lib-dynamodb": "^3.817.0",

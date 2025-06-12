@@ -2,10 +2,13 @@ const { formatDate, generateId } = require('./helper');
 
 exports.handler = async (event) => {
     const { httpMethod, path } = event;
+    console.log('Shopify order webhook received', event);
+    const body = JSON.parse(event.body || '{}');
+    console.log('Shopify order webhook received', JSON.stringify(body, null, 3));
 
     if (httpMethod === 'POST' && path === '/shopify/webhook/order') {
         // Parse the order data from the request body
-        const orderData = JSON.parse(event.body || '{}');
+        const orderData = body;
         // TODO: Add your order processing logic here
 
         return {
