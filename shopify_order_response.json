@@ -1,0 +1,879 @@
+{
+    "id": 5739928158302,
+    "admin_graphql_api_id": "gid://shopify/Order/5739928158302",
+    "app_id": 580111,
+    "browser_ip": "2a09:bac5:4d43:25b9::3c2:b",
+    "buyer_accepts_marketing": false,
+    "cancel_reason": null,
+    "cancelled_at": null,
+    "cart_token": "Z2NwLXVzLWNlbnRyYWwxOjAxSlhCWlZEMUVZNTNYODhKU1lINVpNMUFW",
+    "checkout_id": 33111646634078,
+    "checkout_token": "3b42175c39c812ce12eeaf2ce849ef90",
+    "client_details": {
+        "accept_language": "en-US",
+        "browser_height": null,
+        "browser_ip": "2a09:bac5:4d43:25b9::3c2:b",
+        "browser_width": null,
+        "session_hash": null,
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+    },
+    "closed_at": null,
+    "confirmation_number": "FJR8XTV5T",
+    "confirmed": true,
+    "contact_email": "mdshoaibpk@hotmail.com",
+    "created_at": "2025-06-10T08:27:20-04:00",
+    "currency": "USD",
+    "current_shipping_price_set": {
+        "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        }
+    },
+    "current_subtotal_price": "120.99",
+    "current_subtotal_price_set": {
+        "shop_money": {
+            "amount": "120.99",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "120.99",
+            "currency_code": "USD"
+        }
+    },
+    "current_total_additional_fees_set": null,
+    "current_total_discounts": "28.00",
+    "current_total_discounts_set": {
+        "shop_money": {
+            "amount": "28.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "28.00",
+            "currency_code": "USD"
+        }
+    },
+    "current_total_duties_set": null,
+    "current_total_price": "129.25",
+    "current_total_price_set": {
+        "shop_money": {
+            "amount": "129.25",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "129.25",
+            "currency_code": "USD"
+        }
+    },
+    "current_total_tax": "8.26",
+    "current_total_tax_set": {
+        "shop_money": {
+            "amount": "8.26",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "8.26",
+            "currency_code": "USD"
+        }
+    },
+    "customer_locale": "en-US",
+    "device_id": null,
+    "discount_codes": [],
+    "duties_included": false,
+    "email": "mdshoaibpk@hotmail.com",
+    "estimated_taxes": false,
+    "financial_status": "pending",
+    "fulfillment_status": null,
+    "landing_site": "/",
+    "landing_site_ref": null,
+    "location_id": null,
+    "merchant_business_entity_id": "MTU5OTY1ODAwNTQy",
+    "merchant_of_record_app_id": null,
+    "name": "#1197",
+    "note": null,
+    "note_attributes": [
+        {
+            "name": "Shipping_Class",
+            "value": "ground"
+        },
+        {
+            "name": "Shipping_Price",
+            "value": "81"
+        },
+        {
+            "name": "UPS_Access_Point_ID",
+            "value": "13262"
+        },
+        {
+            "name": "UPS_Access_Point_Address",
+            "value": "8205 DUNWOODY PL, ATLANTA, GA"
+        }
+    ],
+    "number": 197,
+    "order_number": 1197,
+    "order_status_url": "https://rescuedogwines.myshopify.com/59965800542/orders/80a8baa3d57cd4db7af76a0bc3b724cf/authenticate?key=89a9edadd7ee43ba3434436f8ad94984",
+    "original_total_additional_fees_set": null,
+    "original_total_duties_set": null,
+    "payment_gateway_names": [
+        "Cash on Delivery (COD)"
+    ],
+    "phone": "+12035543466",
+    "po_number": null,
+    "presentment_currency": "USD",
+    "processed_at": "2025-06-10T08:27:17-04:00",
+    "reference": null,
+    "referring_site": "",
+    "source_identifier": null,
+    "source_name": "web",
+    "source_url": null,
+    "subtotal_price": "120.99",
+    "subtotal_price_set": {
+        "shop_money": {
+            "amount": "120.99",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "120.99",
+            "currency_code": "USD"
+        }
+    },
+    "tags": "updated",
+    "tax_exempt": false,
+    "tax_lines": [
+        {
+            "price": "4.84",
+            "rate": 0.04,
+            "title": "Georgia State Tax",
+            "price_set": {
+                "shop_money": {
+                    "amount": "4.84",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "4.84",
+                    "currency_code": "USD"
+                }
+            },
+            "channel_liable": false
+        },
+        {
+            "price": "2.73",
+            "rate": 0.03,
+            "title": "Fulton County Tax",
+            "price_set": {
+                "shop_money": {
+                    "amount": "2.73",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "2.73",
+                    "currency_code": "USD"
+                }
+            },
+            "channel_liable": false
+        },
+        {
+            "price": "0.69",
+            "rate": 0.0075,
+            "title": "Fulton Co Tsplost Sp",
+            "price_set": {
+                "shop_money": {
+                    "amount": "0.69",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "0.69",
+                    "currency_code": "USD"
+                }
+            },
+            "channel_liable": false
+        }
+    ],
+    "taxes_included": false,
+    "test": false,
+    "token": "80a8baa3d57cd4db7af76a0bc3b724cf",
+    "total_cash_rounding_payment_adjustment_set": {
+        "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        }
+    },
+    "total_cash_rounding_refund_adjustment_set": {
+        "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+        }
+    },
+    "total_discounts": "28.00",
+    "total_discounts_set": {
+        "shop_money": {
+            "amount": "28.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "28.00",
+            "currency_code": "USD"
+        }
+    },
+    "total_line_items_price": "120.99",
+    "total_line_items_price_set": {
+        "shop_money": {
+            "amount": "120.99",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "120.99",
+            "currency_code": "USD"
+        }
+    },
+    "total_outstanding": "129.25",
+    "total_price": "129.25",
+    "total_price_set": {
+        "shop_money": {
+            "amount": "129.25",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "129.25",
+            "currency_code": "USD"
+        }
+    },
+    "total_shipping_price_set": {
+        "shop_money": {
+            "amount": "28.00",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "28.00",
+            "currency_code": "USD"
+        }
+    },
+    "total_tax": "8.26",
+    "total_tax_set": {
+        "shop_money": {
+            "amount": "8.26",
+            "currency_code": "USD"
+        },
+        "presentment_money": {
+            "amount": "8.26",
+            "currency_code": "USD"
+        }
+    },
+    "total_tip_received": "0.00",
+    "total_weight": 1171,
+    "updated_at": "2025-06-10T08:34:16-04:00",
+    "user_id": null,
+    "billing_address": {
+        "first_name": "Shoaib",
+        "address1": "123 fork rd",
+        "phone": "12035543466",
+        "city": "Atlanta",
+        "zip": "30005",
+        "province": "Georgia",
+        "country": "United States",
+        "last_name": "Manj",
+        "address2": null,
+        "company": null,
+        "latitude": 33.7501275,
+        "longitude": -84.3885209,
+        "name": "Shoaib Manj",
+        "country_code": "US",
+        "province_code": "GA"
+    },
+    "customer": {
+        "id": 7913309372510,
+        "email": "mdshoaibpk@hotmail.com",
+        "created_at": "2025-05-29T22:16:50-04:00",
+        "updated_at": "2025-06-10T08:27:20-04:00",
+        "first_name": "Shoaib",
+        "last_name": "Manj",
+        "state": "disabled",
+        "note": "",
+        "verified_email": true,
+        "multipass_identifier": null,
+        "tax_exempt": false,
+        "phone": "+12035543466",
+        "currency": "USD",
+        "tax_exemptions": [],
+        "admin_graphql_api_id": "gid://shopify/Customer/7913309372510",
+        "default_address": {
+            "id": 8694779379806,
+            "customer_id": 7913309372510,
+            "first_name": "Shoaib",
+            "last_name": "Manj",
+            "company": null,
+            "address1": "123 fork rd",
+            "address2": "",
+            "city": "Atlanta",
+            "province": "Georgia",
+            "country": "United States",
+            "zip": "30005",
+            "phone": "12035543466",
+            "name": "Shoaib Manj",
+            "province_code": "GA",
+            "country_code": "US",
+            "country_name": "United States",
+            "default": true
+        }
+    },
+    "discount_applications": [
+        {
+            "target_type": "shipping_line",
+            "type": "automatic",
+            "value": "100.0",
+            "value_type": "percentage",
+            "allocation_method": "each",
+            "target_selection": "entitled",
+            "title": "6 or more items"
+        }
+    ],
+    "fulfillments": [],
+    "line_items": [
+        {
+            "id": 13834192388190,
+            "admin_graphql_api_id": "gid://shopify/LineItem/13834192388190",
+            "attributed_staffs": [],
+            "current_quantity": 81,
+            "fulfillable_quantity": 81,
+            "fulfillment_service": "manual",
+            "fulfillment_status": null,
+            "gift_card": false,
+            "grams": 0,
+            "name": "Packing and Handling Fees",
+            "price": "1.00",
+            "price_set": {
+                "shop_money": {
+                    "amount": "1.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "1.00",
+                    "currency_code": "USD"
+                }
+            },
+            "product_exists": true,
+            "product_id": 7392498810974,
+            "properties": [],
+            "quantity": 81,
+            "requires_shipping": false,
+            "sales_line_item_group_id": null,
+            "sku": "",
+            "taxable": true,
+            "title": "Packing and Handling Fees",
+            "total_discount": "0.00",
+            "total_discount_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "variant_id": 41771396333662,
+            "variant_inventory_management": null,
+            "variant_title": null,
+            "vendor": "RescueDogWines",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "3.24",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "3.24",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "3.24",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.04,
+                    "title": "Georgia State Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "2.43",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "2.43",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "2.43",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.03,
+                    "title": "Fulton County Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "0.61",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.61",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.61",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.0075,
+                    "title": "Fulton Co Tsplost Sp"
+                }
+            ],
+            "duties": [],
+            "discount_allocations": []
+        },
+        {
+            "id": 13834192420958,
+            "admin_graphql_api_id": "gid://shopify/LineItem/13834192420958",
+            "attributed_staffs": [],
+            "current_quantity": 1,
+            "fulfillable_quantity": 1,
+            "fulfillment_service": "manual",
+            "fulfillment_status": null,
+            "gift_card": false,
+            "grams": 720,
+            "name": "2021 Cabernet Sauvignon",
+            "price": "29.99",
+            "price_set": {
+                "shop_money": {
+                    "amount": "29.99",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "29.99",
+                    "currency_code": "USD"
+                }
+            },
+            "product_exists": true,
+            "product_id": 7372312739934,
+            "properties": [],
+            "quantity": 1,
+            "requires_shipping": true,
+            "sales_line_item_group_id": null,
+            "sku": "860315000665lodi",
+            "taxable": true,
+            "title": "2021 Cabernet Sauvignon",
+            "total_discount": "0.00",
+            "total_discount_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "variant_id": 41657085001822,
+            "variant_inventory_management": "shopify",
+            "variant_title": null,
+            "vendor": "Rescue Dog Wines",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "1.20",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "1.20",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "1.20",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.04,
+                    "title": "Georgia State Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "0.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0,
+                    "title": "Fulton County Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "0.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0,
+                    "title": "Fulton Co Tsplost Sp"
+                }
+            ],
+            "duties": [],
+            "discount_allocations": []
+        },
+        {
+            "id": 13834192453726,
+            "admin_graphql_api_id": "gid://shopify/LineItem/13834192453726",
+            "attributed_staffs": [],
+            "current_quantity": 1,
+            "fulfillable_quantity": 1,
+            "fulfillment_service": "manual",
+            "fulfillment_status": null,
+            "gift_card": false,
+            "grams": 450,
+            "name": "RDW Cola",
+            "price": "10.00",
+            "price_set": {
+                "shop_money": {
+                    "amount": "10.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "10.00",
+                    "currency_code": "USD"
+                }
+            },
+            "product_exists": true,
+            "product_id": 7393585823838,
+            "properties": [],
+            "quantity": 1,
+            "requires_shipping": true,
+            "sales_line_item_group_id": null,
+            "sku": "RDW01",
+            "taxable": true,
+            "title": "RDW Cola",
+            "total_discount": "0.00",
+            "total_discount_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "variant_id": 41774946582622,
+            "variant_inventory_management": null,
+            "variant_title": null,
+            "vendor": "Rescue Dog Wines",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "0.40",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.40",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.40",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.04,
+                    "title": "Georgia State Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "0.30",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.30",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.30",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.03,
+                    "title": "Fulton County Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "0.08",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.08",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.08",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.0075,
+                    "title": "Fulton Co Tsplost Sp"
+                }
+            ],
+            "duties": [],
+            "discount_allocations": []
+        }
+    ],
+    "payment_terms": null,
+    "refunds": [],
+    "shipping_address": {
+        "first_name": "Shoaib",
+        "address1": "123 fork rd",
+        "phone": "12035543466",
+        "city": "Atlanta",
+        "zip": "30005",
+        "province": "Georgia",
+        "country": "United States",
+        "last_name": "Manj",
+        "address2": null,
+        "company": null,
+        "latitude": 33.7501275,
+        "longitude": -84.3885209,
+        "name": "Shoaib Manj",
+        "country_code": "US",
+        "province_code": "GA"
+    },
+    "shipping_lines": [
+        {
+            "id": 4757909078110,
+            "carrier_identifier": null,
+            "code": "Economy",
+            "current_discounted_price_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "discounted_price": "0.00",
+            "discounted_price_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "is_removed": false,
+            "phone": null,
+            "price": "0.00",
+            "price_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "requested_fulfillment_service_id": null,
+            "source": "shopify",
+            "title": "Economy",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "0.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.04,
+                    "title": "Georgia State Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "0.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.03,
+                    "title": "Fulton County Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "0.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.0075,
+                    "title": "Fulton Co Tsplost Sp"
+                }
+            ],
+            "discount_allocations": [
+                {
+                    "amount": "0.00",
+                    "amount_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "discount_application_index": 0
+                }
+            ]
+        },
+        {
+            "id": 4757909110878,
+            "carrier_identifier": null,
+            "code": "Ground Shipping (Buy 4 bottles and shipping is $15)",
+            "current_discounted_price_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "discounted_price": "0.00",
+            "discounted_price_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "is_removed": false,
+            "phone": null,
+            "price": "28.00",
+            "price_set": {
+                "shop_money": {
+                    "amount": "28.00",
+                    "currency_code": "USD"
+                },
+                "presentment_money": {
+                    "amount": "28.00",
+                    "currency_code": "USD"
+                }
+            },
+            "requested_fulfillment_service_id": null,
+            "source": "shopify",
+            "title": "Ground Shipping (Buy 4 bottles and shipping is $15)",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "0.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.04,
+                    "title": "Georgia State Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "0.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.03,
+                    "title": "Fulton County Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "0.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.0075,
+                    "title": "Fulton Co Tsplost Sp"
+                }
+            ],
+            "discount_allocations": [
+                {
+                    "amount": "28.00",
+                    "amount_set": {
+                        "shop_money": {
+                            "amount": "28.00",
+                            "currency_code": "USD"
+                        },
+                        "presentment_money": {
+                            "amount": "28.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "discount_application_index": 0
+                }
+            ]
+        }
+    ],
+    "returns": []
+}

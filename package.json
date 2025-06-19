@@ -9,6 +9,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.817.0",
     "@aws-sdk/lib-dynamodb": "^3.817.0",
+    "axios": "^1.10.0",
     "node-fetch": "^2.7.0"
   }
 }

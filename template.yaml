@@ -251,32 +251,59 @@ Resources:
             RestApiId: !Ref VendorApiKey
 
   # UPS Functions
-  GetUPSLocationsFunction:
+  # GetUPSLocationsFunction:
+  #   Type: AWS::Serverless::Function
+  #   Properties:
+  #     FunctionName: ups-location-finder
+  #     Handler: index.handler
+  #     Runtime: nodejs20.x
+  #     CodeUri: src/functions/getLocations
+  #     MemorySize: 256
+  #     Timeout: 30
+  #     AutoPublishAlias: live
+  #     Policies:
+  #       - DynamoDBCrudPolicy:
+  #           TableName: !Ref UpsTokensTable
+  #       - DynamoDBCrudPolicy:
+  #           TableName: !Ref UpsLocationsTable
+  #     Environment:
+  #       Variables:
+  #         UPS_ENV: production
+  #         TOKEN_TABLE: !Ref UpsTokensTable
+  #         LOCATIONS_TABLE: !Ref UpsLocationsTable
+  #         UPS_CLIENT_ID: !Ref UPSClientId
+  #         UPS_CLIENT_SECRET: !Ref UPSClientSecret
+  #     Events:
+  #       ApiEvent:
+  #         Type: Api
+  #         Properties:
+  #           Path: /ups/locations
+  #           Method: post
+  #           RestApiId: !Ref VendorApiKey
+  #           Auth:
+  #             ApiKeyRequired: true
+
+  GetVinoshipperLocationsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: ups-location-finder
+      FunctionName: vinoshipper-location-finder
       Handler: index.handler
       Runtime: nodejs20.x
-      CodeUri: src/functions/getLocations
+      CodeUri: src/functions/getVinoshipperLocations
       MemorySize: 256
       Timeout: 30
       AutoPublishAlias: live
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref UpsTokensTable
-        - DynamoDBCrudPolicy:
             TableName: !Ref UpsLocationsTable
       Environment:
         Variables:
-          TOKEN_TABLE: !Ref UpsTokensTable
           LOCATIONS_TABLE: !Ref UpsLocationsTable
-          UPS_CLIENT_ID: !Ref UPSClientId
-          UPS_CLIENT_SECRET: !Ref UPSClientSecret
       Events:
         ApiEvent:
           Type: Api
           Properties:
-            Path: /ups/locations
+            Path: /vinoshipper/locations
             Method: post
             RestApiId: !Ref VendorApiKey
             Auth:
@@ -317,6 +344,10 @@ Outputs:
   UPSLocationsApiEndpoint:
     Description: API Gateway endpoint URL for UPS locations
     Value: !Sub "https://${VendorApiKey}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/ups/locations"
+
+  VinoshipperLocationsApiEndpoint:
+    Description: API Gateway endpoint URL for Vinoshipper locations
+    Value: !Sub "https://${VendorApiKey}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/vinoshipper/locations"
 
   ShopifyOrderWebhookApiEndpoint:
     Description: API Gateway endpoint URL for Shopify order webhook

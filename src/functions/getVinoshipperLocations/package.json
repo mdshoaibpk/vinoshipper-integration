@@ -1,0 +1,5 @@
+{
+  "name": "get-vinoshipper-locations",
+  "version": "1.0.0",
+  "description": "Lambda function to get UPS locations via Vinoshipper API"
+} 
