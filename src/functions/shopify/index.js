@@ -8,6 +8,38 @@ const VINOSHIPPER_PASSWORD = process.env.VINOSHIPPER_PASSWORD;
 const SHOPIFY_DOMAIN = process.env.SHOPIFY_DOMAIN;
 const SHOPIFY_ACCESS_TOKEN = process.env.SHOPIFY_ACCESS_TOKEN;
 
+const shipping_classes = [
+    {
+      "carrier": "UPS",
+      "rateCode": "03",
+      "rateDescription": "UPS Ground"
+    },
+    {
+      "carrier": "UPS",
+      "rateCode": "12",
+      "rateDescription": "UPS 3 Day Select"
+    },
+    {
+      "carrier": "UPS",
+      "rateCode": "02",
+      "rateDescription": "UPS 2nd Day Air"
+    },
+    {
+      "carrier": "UPS",
+      "rateCode": "01",
+      "rateDescription": "UPS Next Day Air"
+    },
+    {
+      "carrier": "SELF",
+      "rateCode": "DIGITAL",
+      "rateDescription": "Digital Delivery"
+    },
+    {
+      "carrier": "SELF",
+      "rateCode": "MAIL",
+      "rateDescription": "Mail"
+    }
+  ]
 /**
  * Check if a product is a wine product based on its category
  * @param {Object} product - Shopify product object from GraphQL
@@ -208,6 +240,67 @@ async function checkOrderForWineProducts(lineItems) {
     return result;
 }
 
+// Helper function to find matching shipping class
+function findMatchingShippingClass(shippingLines) {
+    if (!shippingLines || shippingLines.length === 0) {
+        logger.info('No shipping lines found, using default UPS Ground');
+        return {
+            rateCode: '03',
+            carrier: 'UPS'
+        };
+    }
+
+    logger.info('Finding matching shipping class', {
+        shippingLinesCount: shippingLines.length,
+        shippingLines: shippingLines.map(line => ({
+            code: line.code,
+            title: line.title
+        }))
+    });
+
+    for (const shippingLine of shippingLines) {
+        const shippingText = `${shippingLine.code} ${shippingLine.title}`.toLowerCase();
+        
+        logger.debug('Checking shipping line', {
+            code: shippingLine.code,
+            title: shippingLine.title,
+            combinedText: shippingText
+        });
+
+        for (const shippingClass of shipping_classes) {
+            const classDescription = shippingClass.rateDescription.toLowerCase();
+            
+            // Check if shipping line contains the shipping class description
+            if (shippingText.includes(classDescription)) {
+                logger.info('Found matching shipping class', {
+                    shippingLineCode: shippingLine.code,
+                    shippingLineTitle: shippingLine.title,
+                    matchedClass: shippingClass.rateDescription,
+                    rateCode: shippingClass.rateCode,
+                    carrier: shippingClass.carrier
+                });
+                
+                return {
+                    rateCode: shippingClass.rateCode,
+                    carrier: shippingClass.carrier
+                };
+            }
+        }
+    }
+
+    logger.warn('No matching shipping class found, using default UPS Ground', {
+        shippingLines: shippingLines.map(line => ({
+            code: line.code,
+            title: line.title
+        }))
+    });
+    
+    return {
+        rateCode: '03',
+        carrier: 'UPS'
+    };
+}
+
 // Helper function to create Vinoshipper order
 async function createVinoshipperOrder(orderData) {
     logger.info('VINOSHIPPER ORDER CREATION START');
@@ -217,6 +310,9 @@ async function createVinoshipperOrder(orderData) {
         customerEmail: orderData.email,
         lineItemCount: orderData.line_items?.length || 0
     });
+
+    // Find matching shipping class from shipping lines
+    const shippingRate = findMatchingShippingClass(orderData.shipping_lines);
 
     const vinoshipperOrder = {
         paid: true,
@@ -245,10 +341,7 @@ async function createVinoshipperOrder(orderData) {
             street2: `.D2R.${orderData.note_attributes.find(attr => attr.name === 'UPS_Access_Point_ID')?.value}`,
             upsAccessPointId: orderData.note_attributes.find(attr => attr.name === 'UPS_Access_Point_ID')?.value
         },
-        shippingRate: {
-            rateCode: orderData.note_attributes.find(attr => attr.name === 'Shipping_Class')?.value || '03',
-            carrier: 'UPS'
-        },
+        shippingRate: shippingRate,
         products: orderData.line_items
             .filter(item => item.requires_shipping)
             .map(item => ({
@@ -319,6 +412,9 @@ async function updateVinoshipperOrder(orderId, orderData) {
         customerEmail: orderData.email
     });
 
+    // Find matching shipping class from shipping lines
+    const shippingRate = findMatchingShippingClass(orderData.shipping_lines);
+
     const vinoshipperOrder = {
         customer: {
             address: {
@@ -344,10 +440,7 @@ async function updateVinoshipperOrder(orderId, orderData) {
             street1: orderData.shipping_address.address1,
             street2: `.D2R.${orderData.note_attributes.find(attr => attr.name === 'UPS_Access_Point_ID')?.value}`
         },
-        shippingRate: {
-            rateCode: orderData.note_attributes.find(attr => attr.name === 'Shipping_Class')?.value || '03',
-            carrier: 'UPS'
-        },
+        shippingRate: shippingRate,
         products: orderData.line_items
             .filter(item => item.requires_shipping)
             .map(item => ({

@@ -7,3 +7,12 @@ profile = "wdlogics1"
 s3_bucket = "wdlogics-serverless-deployments"
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = false
+[wdlogics.deploy.parameters]
+stack_name = "shopify-order-webhook"
+resolve_s3 = true
+s3_prefix = "shopify-order-webhook"
+region = "us-east-1"
+profile = "wdlogics1"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "ApiStage=\"Prod\" VinoShipperUsername=\"2212.BA9D4461887D4444\" ShopifyDomain=\"rescuedogwines.myshopify.com\""
+image_repositories = []
