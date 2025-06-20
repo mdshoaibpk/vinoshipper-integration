@@ -326,12 +326,12 @@ async function createVinoshipperOrder(orderData) {
             email: orderData.email,
             firstName: orderData.shipping_address.first_name,
             lastName: orderData.shipping_address.last_name,
-            phone: orderData.shipping_address.phone
+            phone: orderData.shipping_address.phone ? orderData.shipping_address.phone.replace(/^\+1|^1|\D/g, '') : ''
         },
         shipToAddress: {
             country: orderData.shipping_address.country_code,
             phone: {
-                number: orderData.shipping_address.phone,
+                number: orderData.shipping_address.phone ? orderData.shipping_address.phone.replace(/^\+1|^1|\D/g, '') : '',
                 country: 1
             },
             postalCode: orderData.shipping_address.zip,
@@ -349,7 +349,7 @@ async function createVinoshipperOrder(orderData) {
                 quantity: item.quantity,
                 price: parseFloat(item.price)
             })),
-        productIdType: 'VS_ID',
+        productIdType: 'SKU',
         orderNumber: `RDW-SHPFY-${orderData.order_number.toString()}`,
         orderDate: orderData.created_at,
         totalPrice: parseFloat(orderData.total_price),
@@ -426,12 +426,12 @@ async function updateVinoshipperOrder(orderId, orderData) {
             email: orderData.email,
             firstName: orderData.shipping_address.first_name,
             lastName: orderData.shipping_address.last_name,
-            phone: orderData.shipping_address.phone
+            phone: orderData.shipping_address.phone ? orderData.shipping_address.phone.replace(/^\+1|^1|\D/g, '') : ''
         },
         shipToAddress: {
             country: orderData.shipping_address.country_code,
             phone: {
-                number: orderData.shipping_address.phone,
+                number: orderData.shipping_address.phone ? orderData.shipping_address.phone.replace(/^\+1|^1|\D/g, '') : '',
                 country: 1
             },
             postalCode: orderData.shipping_address.zip,
@@ -448,7 +448,7 @@ async function updateVinoshipperOrder(orderId, orderData) {
                 quantity: item.quantity,
                 price: parseFloat(item.price)
             })),
-        productIdType: 'VS_ID',
+        productIdType: 'SKU',
         orderNumber: `RDW-SHPFY-${orderData.order_number.toString()}`,
         orderDate: orderData.created_at,
         totalPrice: parseFloat(orderData.total_price),

@@ -1,6 +1,3 @@
-const product = {
-    tags: ['asdfasdf', 'vinoshipper-sku:1234567891']
-}
-const tag = product.tags.find(tag => tag.startsWith('vinoshipper-sku:'));
-const productId = tag ? tag.split(':')[1] : null;
-console.log(productId);
+const phone = '+1234567890';
+const cleanedPhone = phone.replace(/^\+1|^1|\D/g, '');
+console.log(cleanedPhone);
