@@ -328,6 +328,25 @@ Resources:
             # Auth:
             #   ApiKeyRequired: false
 
+  # Vinoshipper Functions
+  VinoshipperWebhookFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: vinoshipper-webhook-handler
+      Handler: index.handler
+      Runtime: nodejs20.x
+      CodeUri: src/functions/vinoshipper-webhook
+      AutoPublishAlias: live
+      Events:
+        VinoshipperWebhook:
+          Type: Api
+          Properties:
+            Path: /vinoshipper/webhook/order
+            Method: POST
+            RestApiId: !Ref VendorApiKey
+            # Auth:
+            #   ApiKeyRequired: false
+
 #############################################
 # Outputs
 #############################################
@@ -352,6 +371,10 @@ Outputs:
   ShopifyOrderWebhookApiEndpoint:
     Description: API Gateway endpoint URL for Shopify order webhook
     Value: !Sub "https://${VendorApiKey}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/shopify/webhook/order"
+
+  VinoshipperWebhookApiEndpoint:
+    Description: API Gateway endpoint URL for Vinoshipper order webhook
+    Value: !Sub "https://${VendorApiKey}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/vinoshipper/webhook/order"
 
   ApiKey:
     Description: API Key for accessing the endpoints
